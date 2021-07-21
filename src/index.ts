@@ -13,10 +13,13 @@ import { Config } from './shared/Config';
 import { InlineLoader} from "./loader/InlineLoader";
 import { Playable } from './playable/index';
 
+import { scaleToWindow } from './utils/Responsive';
+
 import  TWEEN from "@tweenjs/tween.js";
 
 //how ignore it in DEBUG?
 import Resources from "./inline/resources";
+import { Loading } from './loading';
 
 export class App extends Application {
 	static instance: App;
@@ -38,7 +41,7 @@ export class App extends Application {
 		super({
 			autoStart: false,
 			powerPreference: "low-power",
-			backgroundColor: 0xcccccc,
+			backgroundColor: 0x000000,
 			...size
 		});
 
@@ -57,6 +60,14 @@ export class App extends Application {
 			});
 		}
 
+    let backgroundColor = 0xcccccc;
+		
+		// make ad responsive to the screen
+    scaleToWindow(this.view, backgroundColor);
+    window.addEventListener("resize", e => {
+      scaleToWindow(this.view, backgroundColor);
+    });
+
 		this.render();
 
 		//@ts-ignore
@@ -74,14 +85,24 @@ export class App extends Application {
 		// @endif
 	
 		this._init = true;
+		const loading = new Loading(this);
 		const game = new Playable(this);
 
 		const start = performance.now();
-		await new Promise((res)=>{
-			game.preload(this.loader).load(res);
+
+		await new Promise((resolve, _) => {
+			loading.preload(this.loader).load(resolve);
+		});
+		
+		this.start(loading);
+
+		await new Promise((resolve, _) => {
+			game.preload(this.loader).load(resolve);
 		});
 
 		console.log("loading:", performance.now() - start);
+		
+		this.stop();
 
 		this.start(game);
 	}

@@ -1,8 +1,8 @@
 export const Config = {
 
 	ReferenceSize: {
-		width: 1390,
-		height: 640,
+		width: 480,
+		height: 800,
 		resolution: 1//window.devicePixelRatio
 	},
 	AllowAudio: false,
