@@ -292,7 +292,7 @@
   "meta": {
     "app": "http://free-tex-packer.com",
     "version": "0.6.7",
-    "image": "assets-1.png",
+    "image": "page2.png",
     "format": "RGBA8888",
     "size": {
       "w": 1152,
