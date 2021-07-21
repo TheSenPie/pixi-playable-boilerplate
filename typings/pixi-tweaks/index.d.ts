@@ -1,3 +1,5 @@
+import { ILoaderResource } from "pixi.js";
+import { Dict } from "@pixi/utils";
 
 declare module PIXI {
 	export interface Container {
@@ -14,8 +16,8 @@ declare module PIXI {
 
 declare module PIXI {
 	export interface Loader {
-		filter(func: (v: PIXI.LoaderResource) => boolean): PIXI.LoaderResource[];
-		loadAsync() : Promise<PIXI.IResourceDictionary>;
+		filter(func: (v: ILoaderResource ) => boolean): ILoaderResource [];
+		loadAsync() : Promise<Dict<ILoaderResource>>;
 	}
 
 }

@@ -11,10 +11,11 @@
   "author": "eXponenta",
   "license": "UNLICENSED",
   "dependencies": {
+    "@pixi/utils": "^6.0.4",
     "@tweenjs/tween.js": "^17.3.0",
     "howler": "^2.1.1",
     "pixi-viewport": "^4.32.0",
-    "pixi.js": "^5.1.1",
+    "pixi.js": "^6.0.4",
     "pixiv5-tiled": "^1.1.4"
   },
   "devDependencies": {
@@ -33,7 +34,7 @@
     "gulp-uglify-es": "^1.0.4",
     "gulp-util": "^3.0.8",
     "tsify": "^4.0.1",
-    "typescript": "^3.3.3",
+    "typescript": "^3.9.5",
     "vinyl-buffer": "^1.0.1",
     "vinyl-source-stream": "^2.0.0"
   }
