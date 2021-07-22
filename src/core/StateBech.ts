@@ -1,5 +1,6 @@
+import {EventEmitter} from "@pixi/utils";
 
-export class StateBech<T> extends PIXI.utils.EventEmitter {
+export class StateBech<T> extends EventEmitter {
 
     private _current: T;
     private _before: T;
@@ -9,16 +10,16 @@ export class StateBech<T> extends PIXI.utils.EventEmitter {
     }
 
     send(state: T) {
-        
+
         this._before = this._current;// seva last state
         this._current = state;
-        
+
         if(this._current) {
             this.emit("leave", this._current);
         }
 
         this.emit("enter", state);
-        
+
     }
 
     set current(state: T) {

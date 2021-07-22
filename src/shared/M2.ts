@@ -1,3 +1,5 @@
+import {isMobile} from "@pixi/utils";
+
 export class M2 {
 	static randint(a: number, b?: number) {
 		if (b == undefined) {
@@ -17,10 +19,10 @@ export class M2 {
 	}
 
 	static get mobile() {
-		return (PIXI.utils.isMobile as any).any;
+		return (isMobile as any).any;
 	}
 
-	static randKey(pair: {[key:string]:number}, def?: string): string {		
+	static randKey(pair: {[key:string]:number}, def?: string): string {
 		const probs = pair;
 
 		// если нет объекта с наивысшей вероятностью, то нужно нормализовать и найти самый вероятный
@@ -30,14 +32,14 @@ export class M2 {
 		if(!def) {
 			scale = 0;
 			for(let key in probs){
-				
+
 				if(max < probs[key]) {
 					max = probs[key];
 					def = key;
 				}
-				
+
 				scale += probs[key];
-			}	
+			}
 		}
 
 		let p = Math.random() * scale;

@@ -1,7 +1,8 @@
 import { Config } from "./Config";
 import * as Sounds from "../sounds.json";
 import { Howl } from "howler";
-import {IResourceDictionary, utils} from "pixi.js";
+import {Dict, EventEmitter} from "@pixi/utils";
+import {ILoaderResource} from 'pixi.js';
 
 export interface ISound {
 	name: string;
@@ -18,7 +19,7 @@ export interface IPlayingParams {
 export class SoundGrouper {
 	static managers: { [key: string]: SoundManager } = {};
 
-	static createManager(groupId: string, res: IResourceDictionary) {
+	static createManager(groupId: string, res: Dict<ILoaderResource>) {
 
 		const manager = new SoundManager();
 		this.managers[groupId] = manager;
@@ -51,16 +52,16 @@ export class SoundGrouper {
 	}
 }
 
-export class SoundManager extends utils.EventEmitter {
+export class SoundManager extends EventEmitter {
 	sounds: { [id: string]: Howl } = {};
 
 	private _totalsPreloads = 0;
 	private _loaded = 0;
 	private _errors = 0;
 
-	preload(manifest: ISound[], res?: IResourceDictionary) {
+	preload(manifest: ISound[], res?: Dict<ILoaderResource>) {
 		for (const etry of manifest) {
-			
+
 			let srcOrBlob = etry.src;
 			if(res){
 				if(!res[etry.src]){
@@ -125,7 +126,7 @@ export class SoundManager extends utils.EventEmitter {
 		const how = this.Play(name);
 		if(!how)
 			return how;
-		
+
 		return new Promise(res =>{
 			how.once("end", () => res(how));
 		})

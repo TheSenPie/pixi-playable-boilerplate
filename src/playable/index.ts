@@ -32,7 +32,7 @@ export class Playable implements IScene {
 	loader: PIXI.Loader;
 	app: App;
 	gameState: StateBech<any>;
-	
+
 	// hammer: PIXI.Sprite;
 	// continue: PIXI.Sprite;
 	// menu: PIXI.Container;
@@ -230,5 +230,5 @@ export class Playable implements IScene {
 
 	stop(): void { }
 
-	update(ticker: PIXI.ticker.Ticker): void { }
+	update(ticker: PIXI.Ticker): void { }
 }

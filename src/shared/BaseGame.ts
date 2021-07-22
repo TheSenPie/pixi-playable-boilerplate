@@ -35,7 +35,7 @@ export class BaseGame implements IScene {
 
 	start(): void {
 	}
-	
+
 	preload(loader?: PIXI.Loader): PIXI.Loader{
 		this.loader = loader || this.loader || new PIXI.Loader();
 		return this.loader;
@@ -69,6 +69,6 @@ export class BaseGame implements IScene {
 	}
 
 
-	update(ticker: PIXI.ticker.Ticker): void{
+	update(ticker: PIXI.Ticker): void{
 	}
 }

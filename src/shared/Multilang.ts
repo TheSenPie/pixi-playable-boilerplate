@@ -1,4 +1,6 @@
 import { Config } from "./Config";
+import {Loader} from 'pixi.js';
+import {EventEmitter} from "@pixi/utils";
 export interface IManifestEntry {
 	url: string;
 	name: string;
@@ -14,11 +16,11 @@ export interface ITextBase {
 	endings?: Array<string>;
 }
 
-export class Multilang extends PIXI.utils.EventEmitter {
+export class Multilang extends EventEmitter {
 	manifest: { [name: string]: IManifestEntry };
 	langdata: { [key: string]: { [key: string]: string[] } } = {};
 	_lang: string;
-	loader: PIXI.Loader;
+	loader: Loader;
 
 	constructor(manifest: { [name: string]: IManifestEntry }) {
 		super();
@@ -27,10 +29,10 @@ export class Multilang extends PIXI.utils.EventEmitter {
 
 	}
 
-	preload(lang: string, loader: PIXI.Loader) {
+	preload(lang: string, loader: Loader) {
 		if(!this.manifest[lang])
 			lang = 'en_US';
-		
+
 		const l = this.manifest[lang];
 		this._lang = lang;
 		const base = Config.Translations.substr(0, Config.Translations.lastIndexOf("/"));
@@ -50,7 +52,7 @@ export class Multilang extends PIXI.utils.EventEmitter {
 	}
 
 	map(group: string, text: string, data?: {}): string[] {
-		
+
 		const gd = this.getTextBase(group) as any;
 		if (!gd) return [text];
 

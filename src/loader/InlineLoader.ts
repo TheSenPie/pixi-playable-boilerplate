@@ -1,5 +1,7 @@
 import { decode85 } from "./Base85encoder";
-import {LoaderResource, Loader} from "pixi.js";
+import {LoaderResource, ILoaderResource, Loader, BaseTexture} from "pixi.js";
+
+//TODO: ILoaderResource -> LoaderResource in 6.1.0
 
 export interface IPacket {
 	data: string;
@@ -8,7 +10,7 @@ export interface IPacket {
 	path: string;
 }
 
-export interface BundledResources extends PIXI.LoaderResource {
+export interface BundledResources extends ILoaderResource {
 	pack: IPacket;
 }
 
@@ -70,7 +72,7 @@ export class InlineLoader extends Loader {
 		const start = input.indexOf(";") + 1;
 		const s = input.substr(start, 6).trim();
 		if (s !== "base85") return input;
-		
+
 		const b64 = decode85(input, start + 7, USE_BLOB_FOR_85);
 		if(USE_BLOB_FOR_85)
 			return b64;
@@ -138,7 +140,7 @@ export class InlineLoader extends Loader {
 
 		const image = new Image();
 		image.src = this._b85tob64(imageRes);
-		entry.options.metadata.image = PIXI.BaseTexture.from(image);
+		entry.options.metadata.image = BaseTexture.from(image);
 		entry.options.metadata.atlasRawData = atlasRes;
 	}
 
@@ -148,7 +150,7 @@ export class InlineLoader extends Loader {
 		//spine
 		//this._resolveSpine(entry);
 
-		const parent: LoaderResource = (entry.options || {}).parentResource;
+		const parent: ILoaderResource = (entry.options || {}).parentResource;
 		if (!parent) return entry;
 
 		const pack = parent.metadata as IPacket;

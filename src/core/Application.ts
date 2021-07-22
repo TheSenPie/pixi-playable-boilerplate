@@ -1,20 +1,20 @@
 import { utils, Container, Ticker, Loader, Renderer} from 'pixi.js';
 
 export interface ApplicationOptions {
-        autoStart?: boolean;
-        width?: number;
-        height?: number;
-        view?: HTMLCanvasElement;
-        transparent?: boolean;
-        autoDensity?: boolean;
-        antialias?: boolean;
-        preserveDrawingBuffer?: boolean;
-        resolution?: number;
-        backgroundColor?: number;
-        clearBeforeRender?: boolean;
-        forceFXAA?: boolean;
-        powerPreference?: string;
-        resizeTo?: Window | HTMLElement;
+	autoStart?: boolean;
+	width?: number;
+	height?: number;
+	view?: HTMLCanvasElement;
+	transparent?: boolean;
+	autoDensity?: boolean;
+	antialias?: boolean;
+	preserveDrawingBuffer?: boolean;
+	resolution?: number;
+	backgroundColor?: number;
+	clearBeforeRender?: boolean;
+	forceFXAA?: boolean;
+	powerPreference?: WebGLPowerPreference;
+	resizeTo?: Window | HTMLElement;
 }
 
 export class Application extends utils.EventEmitter {
@@ -23,7 +23,7 @@ export class Application extends utils.EventEmitter {
     public ticker: Ticker = new Ticker();
     public stage: Container = new Container();
     public loader: Loader = new Loader();
-  
+
     constructor(options: ApplicationOptions) {
         super();
         this.renderer = new Renderer(options);
@@ -40,7 +40,7 @@ export class Application extends utils.EventEmitter {
     get width() {
         return this.size.width;
     }
-    
+
     get height() {
         return this.size.height;
     }
